@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Analytics Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>📊 Productivity Analytics Dashboard</h1>
+                <div class="header-controls">
+                    <select id="time-period" class="period-selector">
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                    </select>
+                    <button id="export-data" class="btn-export">📥 Export Data</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- Summary Cards -->
+            <section class="summary-section">
+                <div class="summary-cards">
+                    <div class="summary-card productive">
+                        <div class="card-icon">✅</div>
+                        <div class="card-content">
+                            <h3>Productive Time</h3>
+                            <div class="card-value" id="productive-time">0h 0m</div>
+                            <div class="card-change" id="productive-change">+0% from yesterday</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card unproductive">
+                        <div class="card-icon">❌</div>
+                        <div class="card-content">
+                            <h3>Unproductive Time</h3>
+                            <div class="card-value" id="unproductive-time">0h 0m</div>
+                            <div class="card-change" id="unproductive-change">+0% from yesterday</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card neutral">
+                        <div class="card-icon">⚪</div>
+                        <div class="card-content">
+                            <h3>Neutral Time</h3>
+                            <div class="card-value" id="neutral-time">0h 0m</div>
+                            <div class="card-change" id="neutral-change">+0% from yesterday</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card score">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-content">
+                            <h3>Productivity Score</h3>
+                            <div class="card-value" id="productivity-score">0%</div>
+                            <div class="card-change" id="score-change">+0% from yesterday</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Time Distribution</h3>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Daily Productivity Trend</h3>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Top Sites Section -->
+            <section class="sites-section">
+                <div class="sites-grid">
+                    <div class="sites-container">
+                        <div class="sites-header">
+                            <h3>🏆 Most Productive Sites</h3>
+                        </div>
+                        <div class="sites-list" id="productive-sites">
+                            <div class="site-item">
+                                <div class="site-info">
+                                    <span class="site-name">No data available</span>
+                                </div>
+                                <div class="site-time">0m</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sites-container">
+                        <div class="sites-header">
+                            <h3>⏰ Most Time Spent</h3>
+                        </div>
+                        <div class="sites-list" id="most-time-sites">
+                            <div class="site-item">
+                                <div class="site-info">
+                                    <span class="site-name">No data available</span>
+                                </div>
+                                <div class="site-time">0m</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weekly Report Section -->
+            <section class="report-section">
+                <div class="report-container">
+                    <div class="report-header">
+                        <h3>📈 Weekly Productivity Report</h3>
+                        <div class="week-navigation">
+                            <button id="prev-week" class="nav-btn">← Previous</button>
+                            <span id="current-week">This Week</span>
+                            <button id="next-week" class="nav-btn">Next →</button>
+                        </div>
+                    </div>
+                    
+                    <div class="weekly-chart-container">
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+
+                    <div class="weekly-insights">
+                        <div class="insight-item">
+                            <span class="insight-label">Best Day:</span>
+                            <span id="best-day">Monday</span>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-label">Worst Day:</span>
+                            <span id="worst-day">Friday</span>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-label">Average Score:</span>
+                            <span id="avg-score">75%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="settings-section">
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h3>⚙️ Settings</h3>
+                    </div>
+                    
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label for="idle-time">Idle Time Threshold (seconds):</label>
+                            <input type="number" id="idle-time" min="10" max="300" value="30">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label>Custom Site Categories:</label>
+                            <div class="category-manager">
+                                <input type="text" id="site-url" placeholder="Enter website URL">
+                                <select id="site-category">
+                                    <option value="productive">Productive</option>
+                                    <option value="unproductive">Unproductive</option>
+                                    <option value="neutral">Neutral</option>
+                                </select>
+                                <button id="add-site" class="btn-add">Add</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <button id="clear-data" class="btn-danger">🗑️ Clear All Data</button>
+                            <button id="backup-data" class="btn-secondary">💾 Backup Data</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Tracker</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕒 Productivity Tracker</h1>
+        </div>
+        
+        <div class="current-site">
+            <h3>Current Site</h3>
+            <div id="current-site-info">
+                <span id="current-url">Loading...</span>
+                <span id="current-category" class="category-badge">Unknown</span>
+            </div>
+            <div class="time-display">
+                <span id="current-time">00:00:00</span>
+            </div>
+        </div>
+
+        <div class="today-stats">
+            <h3>Today's Summary</h3>
+            <div class="stats-grid">
+                <div class="stat-item productive">
+                    <span class="stat-label">Productive</span>
+                    <span id="productive-time">0h 0m</span>
+                </div>
+                <div class="stat-item unproductive">
+                    <span class="stat-label">Unproductive</span>
+                    <span id="unproductive-time">0h 0m</span>
+                </div>
+            </div>
+            <div class="productivity-score">
+                <span>Productivity Score: </span>
+                <span id="productivity-percentage">0%</span>
+            </div>
+        </div>
+
+        <div class="top-sites">
+            <h3>Top Sites Today</h3>
+            <div id="top-sites-list">
+                <div class="site-item">
+                    <span class="site-name">No data yet</span>
+                    <span class="site-time">0m</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="view-dashboard" class="btn primary">📊 View Dashboard</button>
+            <button id="reset-today" class="btn secondary">🔄 Reset Today</button>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
